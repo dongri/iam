@@ -15,7 +15,7 @@ main = do
   scotty port $ do
 
     get "/" $ do
-      let title = pack "hoge"
+      let title = pack "D"
       html $ renderHtml $ $(hamletFile "views/index.hamlet") undefined
 
     get "/hello" $ do
