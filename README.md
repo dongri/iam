@@ -21,4 +21,6 @@ or
 $ git remote add heroku https://git.heroku.com/dongri.git
 
 $ heroku container:push web
+
+$ heroku container:release web
 ```
