@@ -5,11 +5,11 @@ services:
     container_name: i-am-d
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.build
     volumes:
       - .:/root/src
     logging:
       options:
         max-size: "500k"
     ports:
-      - "50001:3000"
+      - "50001:8080"

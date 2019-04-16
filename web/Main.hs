@@ -1,17 +1,20 @@
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE QuasiQuotes, TemplateHaskell, OverloadedStrings #-}
 
 import Web.Scotty
-import Text.Hastache
+
+import Data.Text
+
+import Text.Hamlet (hamletFile)
+import Text.Blaze.Html.Renderer.Text (renderHtml)
+
+import Data.Monoid (mconcat)
 
 main :: IO ()
-main = scotty 3000 $ do
-  setTemplatesDir "templates"
+main = scotty 8080 $ do
 
-  get "/:word" $ do
-    beam <- param "word"
-    setH "action" $ MuVariable (beam :: String)
-    -- ^ "action" will be binded to the contents of 'beam'
-    hastache "index.html"
+  get "/" $ do
+    let title = pack "hoge"
+    html $ renderHtml $ $(hamletFile "views/index.hamlet") undefined
 
   get "/hello" $ do
     html $ mconcat ["<h1>Hello Haskell, Hello Scotty</h1>"]
