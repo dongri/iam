@@ -18,7 +18,7 @@ $ heroku container:login
 
 $ heroku crate 
 or
-$ git remote add heroku heroku.com
+$ git remote add heroku https://git.heroku.com/dongri.git
 
 $ heroku container:push web
 ```
