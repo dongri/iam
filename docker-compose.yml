@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  i-am-d:
+    container_name: i-am-d
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/root/src
+    logging:
+      options:
+        max-size: "500k"
+    ports:
+      - "50001:3000"
