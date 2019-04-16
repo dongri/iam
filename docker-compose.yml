@@ -6,10 +6,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.build
+    environment:
+      - PORT=3001
     volumes:
       - .:/root/src
     logging:
       options:
         max-size: "500k"
     ports:
-      - "50001:8080"
+      - "50001:3001"

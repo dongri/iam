@@ -1,17 +1,24 @@
-
+# create project
 ```
 $ stack new web scotty-hello-world
 ```
 
+# local dev
 ```
 $ cd web
 $ stack setup
 $ stack build
-$ stack exec web
-
+$ PORT=3001 stack exec web
 ```
 
+# heroku
 ```
-$ docker build -t gcr.io/i-am-d/web -f Dockerfile.build .
-$ gcloud docker -- push gcr.io/i-am-d/web
+$ heroku login
+$ heroku container:login
+
+$ heroku crate 
+or
+$ git remote add heroku heroku.com
+
+$ heroku container:push web
 ```
