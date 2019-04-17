@@ -27,7 +27,7 @@ layout insideDiv = H.html $ do
     H.footer $ do
       H.small $ do
         "Powered by Haskell, Docker, Heroku λ "
-        H.a ! A.href "https://github.com/dongri/iam" $ "D" 
+        H.a ! A.href "https://github.com/dongri/iam" $ "iam" 
 
 main :: IO ()
 main = do
