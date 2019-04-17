@@ -11,3 +11,4 @@ executable          web
     build-depends:  base   >= 4      && < 5
                   , scotty
                   , blaze-html
+                  , wai-middleware-static

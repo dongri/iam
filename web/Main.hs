@@ -9,6 +9,8 @@ import Control.Monad (liftM)
 import Text.Blaze.Html5 as H hiding (main)
 import Text.Blaze.Html5.Attributes as A
 
+import Network.Wai.Middleware.Static
+
 blaze :: Html -> ActionM()
 blaze = S.html . renderHtml
 
@@ -16,24 +18,29 @@ layout :: Html -> Html
 layout insideDiv = H.html $ do
   H.head $ do
     H.meta ! A.name "viewport" ! A.content "width=device-width, initial-scale=1, maximum-scale=1"
+    H.link ! A.rel "shortcut icon" ! A.href "/img/icon.png"
+    H.link ! A.rel "stylesheet" ! A.href "/css/style.css" ! A.type_ "text/css"
     H.title "D"
-  H.body ! A.style "font-family: monospace; margin: 30px;" $ do
+  H.body $ do
     H.div $ do
       H.div insideDiv
-    H.footer ! A.style "bottom: 0px; position: absolute; margin-bottom: 30px;" $ do
+    H.footer $ do
       H.small $ do
         "Powered by Haskell, Docker, Heroku λ "
-        H.a ! A.href "https://github.com/dongri/D" $ "D" 
+        H.a ! A.href "https://github.com/dongri/iam" $ "D" 
 
 main :: IO ()
 main = do
   port <- liftM read $ getEnv "PORT"
   scotty port $ do
 
+    middleware $ staticPolicy $ addBase "static" >-> (contains "/img/" <|> contains "/css/")
+
     get "/" $ do
       blaze $ do
         layout $ do
           H.h2 $ "Dongri Jin"
+          H.img ! A.src "/img/icon.png" ! A.class_ "icon"
           H.p $ "I am Software Engineer"
           H.p $ "I was born in China currently live in Tokyo"
           H.p $ do
