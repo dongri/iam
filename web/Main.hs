@@ -22,6 +22,7 @@ layout insideDiv = H.html $ do
     H.meta ! A.name "viewport" ! A.content "width=device-width, initial-scale=1, maximum-scale=1"
     H.link ! A.rel "shortcut icon" ! A.href "/img/icon.png"
     H.link ! A.rel "stylesheet" ! A.href "/css/style.css" ! A.type_ "text/css"
+    H.script ! A.src "/js/vue.min.js" ! A.type_ "text/javascript" $ ""
     H.title "D"
   H.body $ do
     H.div $ do
@@ -29,14 +30,16 @@ layout insideDiv = H.html $ do
     H.footer $ do
       H.small $ do
         "Powered by Haskell, Docker, Heroku λ "
-        H.a ! A.href "https://github.com/dongri/iam" $ "iam" 
+        H.a ! A.href "https://github.com/dongri/iam" $ "iam"
+        H.span ! A.id "year" $ "{{ message }}"
+    H.script ! A.src "/js/app.js" ! A.type_ "text/javascript" $ ""
 
 main :: IO ()
 main = do
   port <- liftM read $ getEnv "PORT"
   scotty port $ do
 
-    middleware $ staticPolicy $ addBase "static" >-> (contains "/img/" <|> contains "/css/")
+    middleware $ staticPolicy $ addBase "static" >-> (contains "/img/" <|> contains "/css/" <|> contains "/js/")
 
     get "/" $ do
       blaze $ do
