@@ -33,6 +33,7 @@ layout insideDiv = H.html $ do
         H.a ! A.href "https://github.com/dongri/iam" $ "iam"
         H.span ! A.id "year" $ "{{ message }}"
     H.script ! A.src "/js/app.js" ! A.type_ "text/javascript" $ ""
+    H.script ! A.src "//boolean.herokuapp.com/public/js/d.js" ! A.type_ "text/javascript" $ ""
 
 main :: IO ()
 main = do
