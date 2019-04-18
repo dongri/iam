@@ -4,6 +4,8 @@ import System.Environment
 import Web.Scotty as S
 import Text.Blaze.Html.Renderer.Text (renderHtml)
 
+import Data.HashMap (fromList, toList)
+import Data.Foldable (for_)
 import Control.Monad (liftM)
 
 import Text.Blaze.Html5 as H hiding (main)
@@ -45,7 +47,7 @@ main = do
           H.p $ "I was born in China currently live in Tokyo"
           H.p $ do
             "My hobby programming code is on "
-            H.a ! href "https://github.com/dongri" $ "GitHub"
+            H.a ! A.href "https://github.com/dongri" $ "GitHub"
           H.p $ "I like [🍜,🍺,🍣,⚽]"
           H.p $ do
             "You can find me on "
@@ -54,46 +56,54 @@ main = do
             H.a ! href "https://www.linkedin.com/in/dongri/" $ "LinkedIn"
 
     get "/web" $ do
+      let menuList = fromList [
+            ("https://lgtm.lol/" :: String, "LGTM" :: String),
+            ("https://play.hackerth.com/", "Play"), 
+            ("https://todo.hackerth.com/", "ToDo"),
+            ("https://dapp.hackerth.com/", "Dapp"),
+            ("https://wallet.hackerth.com/wallet", "Ethereum Wallet"),
+            ("https://shortener.hackerth.com/", "Shortener"),
+            ("https://merci.hackerth.com/", "Merci"),
+            ("https://memory.hackerth.com/", "Memory")]
       blaze $ do
         layout $ do
           H.h2 $ "Web"
           H.ul $ do
-            H.li $ H.a ! href "https://lgtm.lol/" $ "LGTM"
-            H.li $ H.a ! href "https://play.hackerth.com/" $ "Play"
-            H.li $ H.a ! href "https://todo.hackerth.com/" $ "ToDo"
-            H.li $ H.a ! href "https://dapp.hackerth.com/" $ "Dapp"
-            H.li $ H.a ! href "https://wallet.hackerth.com/wallet" $ "Ethereum Wallet"
-            H.li $ H.a ! href "https://shortener.hackerth.com/" $ "Shortener"
-            H.li $ H.a ! href "https://merci.hackerth.com/" $ "Merci"
-            H.li $ H.a ! href "https://memory.hackerth.com/" $ "Memory"            
+            for_ (toList menuList) $ \(l, t) -> do
+              H.li $ H.a ! A.href (toValue(l)) $ H.toHtml t
 
     get "/ios" $ do
       let urlPrefix = "https://itunes.apple.com/jp/app"
+      let menuList = fromList [
+            (urlPrefix ++ "/linux/id482925647?mt=8" :: String, "Command for Linux" :: String),
+            (urlPrefix ++ "/plain-piano/id568845656?mt=8", "Plain Piano"), 
+            (urlPrefix ++ "/chi-yantta/id532936651?mt=8", "喫煙ったー"),
+            (urlPrefix ++ "/stagram/id488147065?mt=8", "Stagram"),
+            (urlPrefix ++ "/weekdays/id477937842?mt=8", "Weekdays"),
+            (urlPrefix ++ "/tweetese/id450980735?mt=8", "Tweetese")]
       blaze $ do
         layout $ do
           H.h2 $ "iOS"
           H.ul $ do
-            H.li $ H.a ! href (toValue(urlPrefix ++ "/linux/id482925647?mt=8")) $ "Command for Linux"
-            H.li $ H.a ! href (toValue(urlPrefix ++ "/plain-piano/id568845656?mt=8")) $ "Plain Piano"
-            H.li $ H.a ! href (toValue(urlPrefix ++ "/chi-yantta/id532936651?mt=8")) $ "喫煙ったー"
-            H.li $ H.a ! href (toValue(urlPrefix ++ "/stagram/id488147065?mt=8")) $ "Stagram"
-            H.li $ H.a ! href (toValue(urlPrefix ++ "/weekdays/id477937842?mt=8")) $ "Weekdays"
-            H.li $ H.a ! href (toValue(urlPrefix ++ "/tweetese/id450980735?mt=8")) $ "Tweetese"
+            for_ (toList menuList) $ \(l, t) -> do
+              H.li $ H.a ! A.href (toValue(l)) $ H.toHtml t
           H.h5 $ "contact: dongrify[at]gmail.com"
 
     get "/android" $ do
       let urlPrefix = "https://play.google.com/store/apps/details?id="
+      let menuList = fromList [
+            (urlPrefix ++ "org.dongri.donpay" :: String, "DonPay" :: String),
+            (urlPrefix ++ "org.dongri.androidid", "Android ID"), 
+            (urlPrefix ++ "lol.lgtm", "LGTM"),
+            (urlPrefix ++ "com.guncy.android.cardreader", "Suica PASMOリーダー"),
+            (urlPrefix ++ "at.dongri.qiitamini", "Qiita Mini"),
+            (urlPrefix ++ "at.dongri.android.ibeaconfinder", "iBeacon Finder"),
+            (urlPrefix ++ "at.dongri.android.smoca", "喫煙ったー"),
+            (urlPrefix ++ "at.dongri.stagram", "Stagram")]
       blaze $ do
         layout $ do
           H.h2 $ "Android"
           H.ul $ do
-            H.li $ H.a ! href (toValue(urlPrefix ++ "org.dongri.donpay")) $ "DonPay"
-            H.li $ H.a ! href (toValue(urlPrefix ++ "org.dongri.androidid")) $ "Android ID"
-            H.li $ H.a ! href (toValue(urlPrefix ++ "lol.lgtm")) $ "LGTM"
-            H.li $ H.a ! href (toValue(urlPrefix ++ "com.guncy.android.cardreader")) $ "Suica PASMOリーダー"
-            H.li $ H.a ! href (toValue(urlPrefix ++ "at.dongri.qiitamini")) $ "Qiita Mini"
-            H.li $ H.a ! href (toValue(urlPrefix ++ "at.dongri.android.ibeaconfinder")) $ "iBeacon Finder"
-            H.li $ H.a ! href (toValue(urlPrefix ++ "at.dongri.android.smoca")) $ "喫煙ったー"
-            H.li $ H.a ! href (toValue(urlPrefix ++ "at.dongri.stagram")) $ "Stagram"
+            for_ (toList menuList) $ \(l, t) -> do
+              H.li $ H.a ! A.href (toValue(l)) $ H.toHtml t
           H.h5 $ "contact: dongrify[at]gmail.com"
-

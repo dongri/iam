@@ -12,3 +12,4 @@ executable          web
                   , scotty
                   , blaze-html
                   , wai-middleware-static
+                  , hashmap

@@ -1,11 +1,11 @@
 version: '3'
 
 services:
-  i-am-d:
-    container_name: i-am-d
+  iam:
+    container_name: iam
     build:
       context: .
-      dockerfile: Dockerfile.build
+      dockerfile: Dockerfile
     environment:
       - PORT=3001
     volumes:
