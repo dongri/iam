@@ -13,6 +13,8 @@ $ PORT=3001 stack exec web
 
 # heroku
 ```
+$ cd iam
+
 $ heroku login
 $ heroku container:login
 
@@ -20,10 +22,10 @@ $ heroku crate
 or
 $ git remote add heroku https://git.heroku.com/dongri.git
 
-$ heroku container:push web --app dongri
+# deploy
+$ heroku container:push web
 
 $ heroku container:release web
 
 $ heroku logs --tail
 ```
-
